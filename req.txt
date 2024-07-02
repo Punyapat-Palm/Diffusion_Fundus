@@ -1,8 +1,7 @@
--f https://data.pyg.org/whl/torch-2.3.0+cu118.html
-numpy==1.26.4
-pytorch_lightning>=2.3.0
-imageio>=2.31.6
-tqdm>=4.66.4
-pillow>=9.4.0
-einops>=0.8.0
-tensorflow>=2.15.0
+pip3 install torch torchvision torchaudio
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install lightning
+pip install imageio
+pip install numpy==1.26.4
+pip install einops
+pip install tensorflow
