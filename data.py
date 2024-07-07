@@ -3,24 +3,25 @@ import torch
 from torch.utils.data import Dataset
 from PIL import Image
 import numpy as np
+import pandas as pd
+from config import config
 
 class DiffSet(Dataset):
-    def __init__(self, is_train, dataset_path):
+    def __init__(self, is_train):
         self.is_train = is_train
-        self.dataset_path = dataset_path
         self.size = 32  # Set this to the desired image size
         self.depth = 3  # Set this to the number of image channels (e.g., 3 for RGB)
         self.image_paths = self.load_image_paths()
 
     def load_image_paths(self):
         # Modify this to load images from your dataset directory
+        df = pd.read_csv(r'Dataset\train.csv')
         image_paths = []
-        for root, _, files in os.walk(self.dataset_path):
-            for file in files:
-                if file.endswith(("png", "jpg", "jpeg")):
-                    image_paths.append(os.path.join(root, file))
+        z = df[df['diagnosis'] == config['diagnosis']].values.tolist()
+        for i in range(len(z)):
+            image_paths.append(os.path.join(config['dataset'], f'{z[i][0]}.png'))
         return image_paths
-
+    
     def __len__(self):
         return len(self.image_paths)
 
